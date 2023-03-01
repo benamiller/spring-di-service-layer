@@ -1,6 +1,6 @@
-package com.hactually.ui;
+package com.hactually.service;
 
-public class FlooringView implements View {
+public class FlooringOrdersService {
     public void print(String message) {
         System.out.println(message);
     }
