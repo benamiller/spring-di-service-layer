@@ -28,6 +28,9 @@ public class FlooringOrder implements Order {
     // materialCost + labourCost + tax
     private BigDecimal total;
 
+    public FlooringOrder() {
+
+    }
     public FlooringOrder(int orderNumber, LocalDate orderDate, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal labourCostPerSquareFoot) {
         this.orderNumber = orderNumber;
         this.orderDate = orderDate;

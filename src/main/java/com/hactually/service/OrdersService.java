@@ -5,6 +5,10 @@ import com.hactually.dto.Order;
 import java.time.LocalDate;
 
 public interface OrdersService {
+    /*
+    Orders will be in an in-memory structure belonging to dao.FlooringOrders, and
+    this class will be instantiated with a dao.FlooringOrders object
+     */
     public int generateOrderNumber();
     public void readFloorOrdersFromFile();
 
