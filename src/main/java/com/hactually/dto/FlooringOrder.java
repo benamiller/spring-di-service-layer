@@ -2,9 +2,11 @@ package com.hactually.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
 
 public class FlooringOrder implements Order {
     private int orderNumber;
+    private LocalDate orderDate;
     private String customerName;
     private String state;
     private BigDecimal taxRate;
@@ -25,8 +27,9 @@ public class FlooringOrder implements Order {
     // materialCost + labourCost + tax
     private BigDecimal total;
 
-    public FlooringOrder(int orderNumber, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal labourCostPerSquareFoot) {
+    public FlooringOrder(int orderNumber, LocalDate orderDate, String customerName, String state, BigDecimal taxRate, String productType, BigDecimal area, BigDecimal costPerSquareFoot, BigDecimal labourCostPerSquareFoot) {
         this.orderNumber = orderNumber;
+        this.orderDate = orderDate;
         this.customerName = customerName;
         this.state = state;
         this.taxRate = taxRate;
