@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class FlooringOrder implements Order {
+    // Map orderNumber to FlooringOrder object with orderNumber as a property, and the date
     private int orderNumber;
     private LocalDate orderDate;
     private String customerName;
