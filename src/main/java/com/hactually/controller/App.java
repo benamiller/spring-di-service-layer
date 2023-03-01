@@ -15,8 +15,8 @@ public class App {
     }
 
     public void start() {
-        view.print("Hello");
-        ordersService.print("Hello");
+        view.print("view");
+        ordersService.print("service");
     }
 
 }
