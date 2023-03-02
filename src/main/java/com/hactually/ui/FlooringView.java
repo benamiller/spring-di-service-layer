@@ -4,6 +4,10 @@ import com.hactually.dto.FlooringOrder;
 import com.hactually.dto.Order;
 
 public class FlooringView implements View {
+    private final UserIO io;
+    public FlooringView(UserIO io) {
+        this.io = io;
+    }
     public void print(String message) {
         System.out.println(message);
     }

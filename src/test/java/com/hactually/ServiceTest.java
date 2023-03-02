@@ -23,4 +23,14 @@ public class ServiceTest {
         // Look through test folder of orders to get correct order number
         assertEquals(1, 1);
     }
+
+    @Test
+    public void editFlooringOrder() {
+        assertEquals(1, 1);
+    }
+
+    @Test
+    public void removeFlooringOrder() {
+        assertEquals(1,1);
+    }
 }
