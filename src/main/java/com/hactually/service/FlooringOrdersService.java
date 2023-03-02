@@ -1,5 +1,6 @@
 package com.hactually.service;
 
+import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
 
 import java.time.LocalDate;
@@ -10,8 +11,11 @@ public class FlooringOrdersService {
         this.view = view;
     }
 
-    public void displayOrder(String orderDate, int orderNumber) {
+    public void getOrderByDateAndOrderNumber(String orderDate, int orderNumber) {
 
+    }
+    public String displayOrder(FlooringOrder flooringOrder) {
+        return flooringOrder.toString();
     }
 
     public void addOrder(String filename) {

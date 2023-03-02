@@ -7,29 +7,32 @@ import com.hactually.ui.UserIO;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.Assert.assertEquals;
 
 public class ServiceTest {
+    private static FlooringOrdersService ordersService;
+
     @BeforeClass
     public static void init() {
         // create instance of service with dao and view
         UserIO io = new UserIO();
         FlooringView view = new FlooringView(io);
-        FlooringOrdersService ordersService = new FlooringOrdersService(view);
+        ordersService = new FlooringOrdersService(view);
     }
 
     @Test
-    public void displayOrderInformation() {
-        // assertEquals(expectedOrder, actualOrder)
+    public void doesDisplayOrderInformation() {
+        BigDecimal taxRate = BigDecimal.valueOf(23);
+        BigDecimal area = BigDecimal.valueOf(20);
+        BigDecimal costPerSquareFoot = BigDecimal.valueOf(2.2);
+        BigDecimal labourCostPerSquareFoot = BigDecimal.valueOf(2.4);
+        FlooringOrder order = new FlooringOrder(10, "03032023", "Ben", "CA", taxRate, "Carpet", area, costPerSquareFoot, labourCostPerSquareFoot);
+        String expected = "10,Ben,CA,23,Carpet,20,2.2,2.4,44.0,48.0,21.16,113.16";
+        String actual = ordersService.displayOrder(order);
 
-        FlooringOrder order = new FlooringOrder();
-        assertEquals(1, 2);
-    }
-
-    @Test
-    public void generateOrderNumber() {
-        // Look through test folder of orders to get correct order number
-        assertEquals(1, 1);
+        assertEquals(expected, actual);
     }
 
     @Test
