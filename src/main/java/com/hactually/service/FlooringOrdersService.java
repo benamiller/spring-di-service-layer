@@ -9,8 +9,9 @@ public class FlooringOrdersService {
     public FlooringOrdersService(FlooringView view) {
         this.view = view;
     }
-    public void print(String message) {
-        view.print(message);
+
+    public void displayOrder(String orderDate, int orderNumber) {
+
     }
 
     public void addOrder(String filename) {
@@ -39,5 +40,9 @@ public class FlooringOrdersService {
 
     public int readInt(String prompt) {
         return view.readInt(prompt);
+    }
+
+    public void print(String message) {
+        view.print(message);
     }
 }
