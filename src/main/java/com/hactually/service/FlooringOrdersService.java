@@ -1,20 +1,43 @@
 package com.hactually.service;
 
+import com.hactually.ui.FlooringView;
+
 import java.time.LocalDate;
 
 public class FlooringOrdersService {
+    private FlooringView view;
+    public FlooringOrdersService(FlooringView view) {
+        this.view = view;
+    }
     public void print(String message) {
-        System.out.println(message);
+        view.print(message);
+    }
 
-
+    public void addOrder(String filename) {
 
     }
 
-    public void addOrder() {
+    public void editOrder() {
+
+    }
+
+    public void removeOrder() {
+
+    }
+
+    public void exportData() {
 
     }
 
     public boolean isFutureDate(LocalDate date) {
         return false;
+    }
+
+    public void printMenu() {
+        view.printMenu();
+    }
+
+    public int readInt(String prompt) {
+        return view.readInt(prompt);
     }
 }

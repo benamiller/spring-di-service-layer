@@ -11,9 +11,9 @@ public class Main {
         // pass these to the controller
         UserIO io = new UserIO();
         FlooringView view = new FlooringView(io);
-        FlooringOrdersService ordersService = new FlooringOrdersService();
+        FlooringOrdersService ordersService = new FlooringOrdersService(view);
 
-        App app = new App(view, ordersService);
+        App app = new App(ordersService);
         app.start();
     }
 }
