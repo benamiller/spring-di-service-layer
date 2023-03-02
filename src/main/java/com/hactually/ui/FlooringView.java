@@ -3,6 +3,11 @@ package com.hactually.ui;
 import com.hactually.dto.FlooringOrder;
 import com.hactually.dto.Order;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class FlooringView implements View {
     private final UserIO io;
     public FlooringView(UserIO io) {
@@ -16,15 +21,10 @@ public class FlooringView implements View {
         return new FlooringOrder();
     }
 
-    public void printMenu() {
+    // Add list of menu items here, and then use a stream to print each
+    public void printMenu(List<String> menuItems) {
         io.print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
-        io.print("* <<Floor Mastery>>");
-        io.print("* 1. Display Order");
-        io.print("* 2. Add an Order");
-        io.print("* 3. Edit an Order");
-        io.print("* 4. Remove an Order");
-        io.print("* 5. Export All Data");
-        io.print("* 6. Exit");
+        menuItems.forEach(System.out::println);
         io.print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 

@@ -13,8 +13,6 @@ public class App {
     }
 
     public void start() {
-        ordersService.print("view");
-        ordersService.print("service");
 
         boolean shouldContinue = true;
 

@@ -4,6 +4,9 @@ import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class FlooringOrdersService {
     private FlooringView view;
@@ -39,7 +42,15 @@ public class FlooringOrdersService {
     }
 
     public void printMenu() {
-        view.printMenu();
+        List<String> menuItems =
+                new ArrayList<>(Arrays.asList(
+                        "* 1. Display Order",
+                        "* 2. Add an Order",
+                        "* 3. Edit an Order",
+                        "* 4. Remove an Order",
+                        "* 5. Export All Data",
+                        "* 6. Exit"));
+        view.printMenu(menuItems);
     }
 
     public int readInt(String prompt) {
