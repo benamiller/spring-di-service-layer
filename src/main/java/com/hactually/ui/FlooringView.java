@@ -4,9 +4,7 @@ import com.hactually.dto.FlooringOrder;
 import com.hactually.dto.Order;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class FlooringView implements View {
     private final UserIO io;
@@ -45,5 +43,18 @@ public class FlooringView implements View {
 
     public int readInt(String prompt) {
         return io.readInt(prompt);
+    }
+
+    public Map<String, String> getFlooringOrderInfoFromInput() {
+        String customerName = io.readString("Enter your name: ");
+        String state = io.readString("Enter your state initialism: ");
+        String productType = io.readString("Enter the product type");
+        String area = io.readString("Enter your floor area");
+        Map<String, String> map = new HashMap<>();
+        map.put("customerName", customerName);
+        map.put("state", state);
+        map.put("productType", productType);
+        map.put("area", area);
+        return map;
     }
 }

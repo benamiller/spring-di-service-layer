@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class FlooringOrdersService {
     private FlooringView view;
@@ -22,7 +23,10 @@ public class FlooringOrdersService {
     }
 
     public void addOrder(String filename) {
-
+        Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
+        System.out.println(validateCustomerName(flooringOrderInputs.get("customerName")));
+        // Validate customer name (^[\.a-zA-Z0-9, ]+$)
+        // Validate order date (ensure it is in the future)
     }
 
     public void editOrder() {
@@ -59,5 +63,9 @@ public class FlooringOrdersService {
 
     public void print(String message) {
         view.print(message);
+    }
+
+    public boolean validateCustomerName(String customerName) {
+        return (customerName.matches("^[.a-zA-Z0-9, ]+$"));
     }
 }
