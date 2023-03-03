@@ -4,12 +4,11 @@ import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class FlooringOrdersService {
+
     private FlooringView view;
     public FlooringOrdersService(FlooringView view) {
         this.view = view;
@@ -22,11 +21,9 @@ public class FlooringOrdersService {
         return flooringOrder.toString();
     }
 
-    public void addOrder(String filename) {
+    public void createOrder(String filename) {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
-        System.out.println(validateCustomerName(flooringOrderInputs.get("customerName")));
-        // Validate customer name (^[\.a-zA-Z0-9, ]+$)
-        // Validate order date (ensure it is in the future)
+
     }
 
     public void editOrder() {
@@ -65,7 +62,5 @@ public class FlooringOrdersService {
         view.print(message);
     }
 
-    public boolean validateCustomerName(String customerName) {
-        return (customerName.matches("^[.a-zA-Z0-9, ]+$"));
-    }
 }
+
