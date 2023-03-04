@@ -69,6 +69,14 @@ public class FlooringView implements View {
         return map;
     }
 
+    public String[] getFlooringOrderInfoToDelete() {
+        String orderDate = io.readString("Enter the order fulfill date: ");
+        String orderNumber = io.readString("Enter the order number: ");
+        String[] orderInfoToDelete = {orderDate, orderNumber};
+
+        return orderInfoToDelete;
+    }
+
     public String getFlooringOrderCustomerName(String prompt) {
         return io.readString(prompt);
     }

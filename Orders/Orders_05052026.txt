@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total
+4,Ben,CA,25.0,Carpet,20.0,2.25,2.1,45.000,42.00,21.75,108.75

@@ -131,4 +131,54 @@ public class FlooringOrders implements Orders {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean removeOrder(String[] orderInfoToDelete) {
+        String orderDate = orderInfoToDelete[0];
+        String orderNumberToDelete = orderInfoToDelete[1];
+        String orderFileName = "./Orders/Orders_" + orderDate + ".txt";
+
+        File tempFile = new File("./Orders/tempOrder.txt");
+        File orderFile = new File(orderFileName);
+
+        if (!orderFile.exists()) {
+            return true;
+        }
+
+        Scanner scanner;
+        try {
+
+            FileWriter fileWriter = new FileWriter(tempFile);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            scanner = new Scanner(
+                    new BufferedReader(
+                            new FileReader(orderFile)
+                    )
+            );
+
+            while(scanner.hasNextLine()) {
+                String flooringOrderInfo = scanner.nextLine();
+                String[] flooringOrderInfoUnmarshalled = flooringOrderInfo.split(",");
+                String candidateOrderNumber = flooringOrderInfoUnmarshalled[0];
+
+                if (candidateOrderNumber.equals(orderNumberToDelete)) {
+                    // do not print line to temp file
+                    continue;
+                }
+
+                printWriter.println(flooringOrderInfo);
+
+            }
+
+            printWriter.flush();
+            printWriter.close();
+
+            return tempFile.renameTo(orderFile);
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

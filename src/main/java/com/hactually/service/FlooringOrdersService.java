@@ -54,7 +54,8 @@ public class FlooringOrdersService {
     }
 
     public void removeOrder() {
-
+        String[] orderInfoToDelete = view.getFlooringOrderInfoToDelete();
+        flooringOrders.removeOrder(orderInfoToDelete);
     }
 
     public void exportData() {

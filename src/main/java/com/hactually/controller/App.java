@@ -38,6 +38,7 @@ public class App {
                     break;
                 case 4:
                     System.out.println("Remove order");
+                    ordersService.removeOrder();
                     break;
                 case 5:
                     System.out.println("Export data");
