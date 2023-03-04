@@ -5,7 +5,6 @@ import com.hactually.ui.FlooringView;
 import com.hactually.ui.View;
 
 public class App {
-
     private final FlooringOrdersService ordersService;
     // Should have a service layer Order object
     public App(FlooringOrdersService ordersService) {
@@ -13,8 +12,12 @@ public class App {
     }
 
     public void start() {
+        final String PRODUCT_COSTS_FILENAME = "./Data/Products.txt";
+        final String TAX_RATES_FILENAME = "./Data/Taxes.txt";
 
         boolean shouldContinue = true;
+        ordersService.fetchTaxRates(TAX_RATES_FILENAME);
+        ordersService.fetchProductCosts(PRODUCT_COSTS_FILENAME);
 
         while (shouldContinue) {
 
@@ -28,7 +31,7 @@ public class App {
                     break;
                 case 2:
                     System.out.println("Add order");
-                    ordersService.createOrder("test");
+                    ordersService.createOrder();
                     break;
                 case 3:
                     System.out.println("Edit order");

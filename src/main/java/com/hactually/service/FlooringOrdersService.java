@@ -25,13 +25,27 @@ public class FlooringOrdersService {
         return flooringOrder.toString();
     }
 
-    public void createOrder(String filename) {
+    public void createOrder() {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
-        FlooringOrder flooringOrder = new FlooringOrder();
-        BigDecimal flooringOrderTaxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
-        BigDecimal flooringOrderCostPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(flooringOrderInputs.get("productType"));
-        BigDecimal flooringOrderLabourCostPerSquareFoot = flooringOrders.getFlooringOrderLabourCostPerSquareFoot(flooringOrderInputs.get("productType"));
-
+        BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
+        BigDecimal costPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(flooringOrderInputs.get("productType"));
+        BigDecimal labourCostPerSquareFoot = flooringOrders.getFlooringOrderLabourCostPerSquareFoot(flooringOrderInputs.get("productType"));
+        BigDecimal area = BigDecimal.valueOf(Double.parseDouble(flooringOrderInputs.get("area")));
+        int orderNumber = flooringOrders.getNextOrderNumber();
+        // call dao to add the order to file
+        // generate order number
+        FlooringOrder flooringOrder = new FlooringOrder(
+                orderNumber,
+                flooringOrderInputs.get("orderDate"),
+                flooringOrderInputs.get("customerName"),
+                flooringOrderInputs.get("state"),
+                taxRate,
+                flooringOrderInputs.get("productType"),
+                area,
+                costPerSquareFoot,
+                labourCostPerSquareFoot
+                );
+        flooringOrders.addOrder(flooringOrder);
 
     }
 
@@ -69,6 +83,14 @@ public class FlooringOrdersService {
 
     public void print(String message) {
         view.print(message);
+    }
+
+    public void fetchTaxRates(String filename) {
+        flooringOrders.fetchTaxRates(filename);
+    }
+
+    public void fetchProductCosts(String filename) {
+        flooringOrders.fetchProductTypeCosts(filename);
     }
 
 }

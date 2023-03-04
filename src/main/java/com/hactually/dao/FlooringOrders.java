@@ -15,12 +15,26 @@ public class FlooringOrders implements Orders {
     // Add the order to the file
     public void addOrder(FlooringOrder flooringOrder) {
         String flooringOrderDate = flooringOrder.getOrderDate();
-        File file = new File(ORDERS_DIRECTORY + flooringOrderDate + FILE_EXTENSION);
-        if (!file.exists()) {
+        File file = new File(ORDERS_DIRECTORY + "Orders_" + flooringOrderDate + FILE_EXTENSION);
+        if (file.exists()) {
             try {
                 FileWriter fr = new FileWriter(file, true);
                 PrintWriter pr = new PrintWriter(fr);
                 pr.println(flooringOrder);
+                pr.flush();
+                pr.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                System.out.println("PRINTING TO FILE");
+                FileWriter fr = new FileWriter(file);
+                PrintWriter pr = new PrintWriter(fr);
+                pr.println("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total");
+                pr.println(flooringOrder);
+                pr.flush();
+                pr.close();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -83,5 +97,38 @@ public class FlooringOrders implements Orders {
 
     public BigDecimal getFlooringOrderLabourCostPerSquareFoot(String productType) {
         return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
+    }
+
+    public int getNextOrderNumber() {
+        Scanner sc;
+        try {
+            sc = new Scanner(
+                    new BufferedReader(
+                            new FileReader("./LAST_ORDER.txt")
+                    )
+            );
+            String currentOrderNumber = sc.nextLine();
+            int orderNumber = Integer.parseInt(currentOrderNumber);
+
+            updateOrderNumber(orderNumber);
+
+            return orderNumber;
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateOrderNumber(int orderNumber) {
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("./LAST_ORDER.txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            printWriter.println(orderNumber + 1);
+            printWriter.flush();
+            printWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
