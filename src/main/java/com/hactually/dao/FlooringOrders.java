@@ -181,4 +181,45 @@ public class FlooringOrders implements Orders {
             throw new RuntimeException(e);
         }
     }
+
+    public String[] getEditableOrderInfo(String orderDate, String orderNumber) {
+        File file = new File("./Orders/Orders_" + orderDate + ".txt");
+        if (!file.exists()) {
+            return null;
+        }
+
+        Scanner sc;
+        try {
+            sc = new Scanner(
+                    new BufferedReader(
+                            new FileReader(file)
+                    )
+            );
+
+            String[] flooringOrderCurrentEditableInfo;
+            // skip header
+            sc.nextLine();
+            while (sc.hasNextLine()) {
+                String flooringOrderInfo = sc.nextLine();
+                String[] flooringOrderInfoUnmarshalled = flooringOrderInfo.split(",");
+
+                String candidateOrderNumber = flooringOrderInfoUnmarshalled[0];
+
+                if (candidateOrderNumber.equals(orderNumber)) {
+                    flooringOrderCurrentEditableInfo =
+                            new String[]{
+                                    flooringOrderInfoUnmarshalled[1],
+                                    flooringOrderInfoUnmarshalled[2],
+                                    flooringOrderInfoUnmarshalled[4],
+                                    flooringOrderInfoUnmarshalled[5]};
+                    return flooringOrderCurrentEditableInfo;
+                }
+            }
+
+            return null;
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

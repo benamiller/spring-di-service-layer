@@ -50,11 +50,20 @@ public class FlooringOrdersService {
     }
 
     public void editOrder() {
+        String[] orderInfoToEdit = view.getFlooringOrderInfo();
+
+        // pass the orderDate, and orderNumber to get current property values
+        String[] currentOrderInfo = flooringOrders.getEditableOrderInfo(orderInfoToEdit[0], orderInfoToEdit[1]);
+        String newCustomerName = view.getNewPropertyValue("customer name", currentOrderInfo[0]);
+        String newState = view.getNewPropertyValue("state", currentOrderInfo[1]);
+        String newProductType = view.getNewPropertyValue("product type", currentOrderInfo[2]);
+        String newArea = view.getNewPropertyValue("area", currentOrderInfo[3]);
+
 
     }
 
     public void removeOrder() {
-        String[] orderInfoToDelete = view.getFlooringOrderInfoToDelete();
+        String[] orderInfoToDelete = view.getFlooringOrderInfo();
         flooringOrders.removeOrder(orderInfoToDelete);
     }
 

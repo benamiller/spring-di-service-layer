@@ -35,6 +35,7 @@ public class App {
                     break;
                 case 3:
                     System.out.println("Edit order");
+                    ordersService.editOrder();
                     break;
                 case 4:
                     System.out.println("Remove order");

@@ -69,7 +69,7 @@ public class FlooringView implements View {
         return map;
     }
 
-    public String[] getFlooringOrderInfoToDelete() {
+    public String[] getFlooringOrderInfo() {
         String orderDate = io.readString("Enter the order fulfill date: ");
         String orderNumber = io.readString("Enter the order number: ");
         String[] orderInfoToDelete = {orderDate, orderNumber};
@@ -105,4 +105,9 @@ public class FlooringView implements View {
         String orderDateFormatted = orderYear + orderMonth + orderDay;
 
         return (orderDateFormatted.compareTo(currentDateFormatted) >= 0);
-    }}
+    }
+
+    public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
+        return io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
+    }
+}
