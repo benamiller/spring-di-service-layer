@@ -108,6 +108,11 @@ public class FlooringView implements View {
     }
 
     public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
-        return io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
+        String newPropertyValue =  io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
+        if (newPropertyValue == null || newPropertyValue.length() == 0) {
+            return currentPropertyValue;
+        }
+
+        return newPropertyValue;
     }
 }

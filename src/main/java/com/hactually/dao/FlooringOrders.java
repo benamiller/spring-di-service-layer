@@ -222,4 +222,8 @@ public class FlooringOrders implements Orders {
             throw new RuntimeException(e);
         }
     }
+
+    public void editOrder(String[] orderInfoToEdit, ArrayList<String> updatedProperties) {
+
+    }
 }

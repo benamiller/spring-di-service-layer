@@ -59,7 +59,16 @@ public class FlooringOrdersService {
         String newProductType = view.getNewPropertyValue("product type", currentOrderInfo[2]);
         String newArea = view.getNewPropertyValue("area", currentOrderInfo[3]);
 
+        System.out.println("New customer name: " + newCustomerName);
+        System.out.println("New state: " + newState);
+        System.out.println("New product type: " + newProductType);
+        System.out.println("New area: " + newArea);
 
+        ArrayList<String> updatedProperties = new ArrayList<>(Arrays.asList(newCustomerName, newState, newProductType, newArea));
+
+        // create a new FlooringOrder object with updated values
+        // find order number in file, and replace with object.toString
+        flooringOrders.editOrder(orderInfoToEdit, updatedProperties);
     }
 
     public void removeOrder() {
