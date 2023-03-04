@@ -1,8 +1,10 @@
 package com.hactually.service;
 
+import com.hactually.dao.FlooringOrders;
 import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -10,8 +12,10 @@ import java.util.*;
 public class FlooringOrdersService {
 
     private FlooringView view;
-    public FlooringOrdersService(FlooringView view) {
+    private FlooringOrders flooringOrders;
+    public FlooringOrdersService(FlooringView view, FlooringOrders flooringOrders) {
         this.view = view;
+        this.flooringOrders = flooringOrders;
     }
 
     public void getOrderByDateAndOrderNumber(String orderDate, int orderNumber) {
@@ -23,6 +27,11 @@ public class FlooringOrdersService {
 
     public void createOrder(String filename) {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
+        FlooringOrder flooringOrder = new FlooringOrder();
+        BigDecimal flooringOrderTaxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
+        BigDecimal flooringOrderCostPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(flooringOrderInputs.get("productType"));
+        BigDecimal flooringOrderLabourCostPerSquareFoot = flooringOrders.getFlooringOrderLabourCostPerSquareFoot(flooringOrderInputs.get("productType"));
+
 
     }
 

@@ -1,5 +1,6 @@
 package com.hactually;
 
+import com.hactually.dao.FlooringOrders;
 import com.hactually.dto.FlooringOrder;
 import com.hactually.service.FlooringOrdersService;
 import com.hactually.ui.FlooringView;
@@ -19,7 +20,8 @@ public class ServiceTest {
         // create instance of service with dao and view
         UserIO io = new UserIO();
         FlooringView view = new FlooringView(io);
-        ordersService = new FlooringOrdersService(view);
+        FlooringOrders flooringOrders = new FlooringOrders();
+        ordersService = new FlooringOrdersService(view, flooringOrders);
     }
 
     @Test

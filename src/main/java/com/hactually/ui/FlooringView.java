@@ -79,6 +79,8 @@ public class FlooringView implements View {
 
     public boolean validateCustomerName(String customerName) {
         return (customerName.matches("^[.a-zA-Z0-9, ]+$"));
+
+
     }
 
     private boolean validateOrderDate(String orderDate) {
