@@ -49,14 +49,28 @@ public class FlooringOrders implements Orders {
         }
 
     }
-    
-    public Map<String, Double[]> fetchProductTypeCosts() {
-        Map<String, Double[]> map = new HashMap<>();
-        Double[] arr = {2.25, 2.10};
-        map.put("Carpet", arr);
-        productCostAndLabourCostPerSquareFoot.put("Carpet", arr);
 
-        return productCostAndLabourCostPerSquareFoot;
+    public void fetchProductTypeCosts(String filename) {
+        Scanner sc;
+        try {
+            sc = new Scanner(
+                    new BufferedReader(
+                            new FileReader(filename)
+                    )
+            );
+            sc.nextLine();
+            while(sc.hasNextLine()) {
+                String productTypeInfo = sc.nextLine();
+                String[] productTypeInfoUnmarshalled = productTypeInfo.split(",");
+                String productType = productTypeInfoUnmarshalled[0];
+                double costPerSquareFoot = Double.parseDouble(productTypeInfoUnmarshalled[1]);
+                double labourCostPerSquareFoot  = Double.parseDouble(productTypeInfoUnmarshalled[2]);
+                Double[] costs = {costPerSquareFoot, labourCostPerSquareFoot};
+                productCostAndLabourCostPerSquareFoot.put(productType, costs);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public BigDecimal getFlooringOrderTaxRate(String state) {
@@ -64,5 +78,10 @@ public class FlooringOrders implements Orders {
     }
 
     public BigDecimal getFlooringOrderCostPerSquareFoot(String productType) {
+        return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[0]);
+    }
+
+    public BigDecimal getFlooringOrderLabourCostPerSquareFoot(String productType) {
+        return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
     }
 }

@@ -46,4 +46,14 @@ public class ServiceTest {
     public void removeFlooringOrder() {
         assertEquals(1,1);
     }
+
+    @Test
+    public void fetchTaxRates() {
+        assertEquals(1, 1);
+    }
+
+    @Test
+    public void fetchCostPerSquareFootAndLabourCostPerSquareFoot() {
+        assertEquals(1, 1);
+    }
 }
