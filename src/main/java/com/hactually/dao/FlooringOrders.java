@@ -7,6 +7,9 @@ import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
+/**
+ * FlooringOrders interacts with the file system to record, edit, remove, fetch, and backup orders
+ */
 @Component
 public class FlooringOrders implements Orders {
     private Map<String, Double> taxRatesByState = new HashMap<>();
@@ -14,7 +17,11 @@ public class FlooringOrders implements Orders {
     private final String ORDERS_DIRECTORY = "./Orders/";
     private final String FILE_EXTENSION = ".txt";
 
-    // Add the order to the file
+
+    /**
+     * Stores a FlooringOrder to disk under the correctly dated file
+     * @param flooringOrder A FlooringOrder object to be persisted
+     */
     public void addOrder(FlooringOrder flooringOrder) {
         String flooringOrderDate = flooringOrder.getOrderDate();
         File file = new File(ORDERS_DIRECTORY + "Orders_" + flooringOrderDate + FILE_EXTENSION);
@@ -43,7 +50,10 @@ public class FlooringOrders implements Orders {
         }
     }
 
-    // Retrieves taxRates from file
+    /**
+     * Retrieves taxRates from file for each state
+     * @param filename The name of the file from which taxRates are to be gathered
+     */
     public void fetchTaxRates(String filename) {
         Scanner sc;
         try {
@@ -66,6 +76,10 @@ public class FlooringOrders implements Orders {
 
     }
 
+    /**
+     * Retrieves productType labour and material costs per sq ft.
+     * @param filename The name of the file from which productType costs are to be gathered
+     */
     public void fetchProductTypeCosts(String filename) {
         Scanner sc;
         try {
@@ -89,18 +103,37 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Gets the taxRate for a given state (initialized i.e. CA for California)
+     * @param state The state whose taxRate should be returned
+     * @return The BigDecimal value of the state's taxRate
+     */
     public BigDecimal getFlooringOrderTaxRate(String state) {
         return BigDecimal.valueOf(taxRatesByState.get(state));
     }
 
+    /**
+     * Gets the cost per sq ft. of a given productType
+     * @param productType The productType whose cost per sq ft. should be returned
+     * @return The BigDecimal value of the material cost per sq ft.
+     */
     public BigDecimal getFlooringOrderCostPerSquareFoot(String productType) {
         return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[0]);
     }
 
+    /**
+     * Gets the labour cost per sq ft. of a given productType
+     * @param productType The productType whose labour cost per sq ft. should be returned
+     * @return The BigDecimal value of the labour cost per sq ft.
+     */
     public BigDecimal getFlooringOrderLabourCostPerSquareFoot(String productType) {
         return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
     }
 
+    /**
+     * Gets the next globally unique order number stored on disk
+     * @return The next usable globally unique order number
+     */
     public int getNextOrderNumber() {
         Scanner sc;
         try {
@@ -120,6 +153,10 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Updates the next globally unique order number to be used for the next order
+     * @param orderNumber The last order number used, to be incremented by 1
+     */
     public void updateOrderNumber(int orderNumber) {
         FileWriter fileWriter = null;
         try {
@@ -134,6 +171,11 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Removes an order, specified by orderDate and orderNumber, from disk
+     * @param orderInfoToDelete The orderDate, and orderNumber in a length-2 array of Strings
+     * @return Boolean which indicates if the temp file was successfully renamed
+     */
     public boolean removeOrder(String[] orderInfoToDelete) {
         String orderDate = orderInfoToDelete[0];
         String orderNumberToDelete = orderInfoToDelete[1];
@@ -184,6 +226,13 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Retrieves the editable information of an order: customerName, state, productType, area
+     * This allows for the preview of the existing values while editing the order
+     * @param orderDate The date of the order
+     * @param orderNumber The number of the order
+     * @return Returns a String array of updated FlooringOrder values
+     */
     public String[] getEditableOrderInfo(String orderDate, String orderNumber) {
         File file = new File("./Orders/Orders_" + orderDate + ".txt");
         if (!file.exists()) {
@@ -225,6 +274,12 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Applies the intended edits to disk
+     * @param orderInfoToEdit The orderDate and orderNumber to target the intended FlooringOrder on disk
+     * @param updatedProperties The updated FlooringOrder values to replace the existing FlooringOrder
+     * @return Boolean indicating if edits were successfully applied
+     */
     public boolean editOrder(String[] orderInfoToEdit, ArrayList<String> updatedProperties) {
         String orderDate = orderInfoToEdit[0];
         String orderNumberToEdit = orderInfoToEdit[1];
@@ -288,6 +343,14 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * A helper method to construct a FlooringOrder with edits applied
+     * The FlooringOrder is constructed to update any costs from productType changes
+     * and to update taxRate from state changes
+     * @param flooringOrderInfo  The newly edited values of the FlooringOrder
+     * @param orderDate The orderDate used in the constructor, but is not persisted outside the filename
+     * @return The FlooringOrder with the edits applied
+     */
     private FlooringOrder makeFlooringOrderFromStringArray(String[] flooringOrderInfo, String orderDate) {
         int orderNumber = Integer.parseInt(flooringOrderInfo[0]);
         String customerName = flooringOrderInfo[1];
@@ -303,6 +366,10 @@ public class FlooringOrders implements Orders {
         return flooringOrder;
     }
 
+    /**
+     * Prints all orders for a given date
+     * @param file The file containing the orders to be displayed
+     */
     public void displayOrdersForDate(File file) {
 
         Scanner scanner;
@@ -328,6 +395,11 @@ public class FlooringOrders implements Orders {
         }
     }
 
+    /**
+     * Exports the orders from a list of files
+     * @param files An ArrayList of files which contain orders to be backed up
+     * @param backupFileName The target backup filename
+     */
     public void exportFiles(ArrayList<File> files, String backupFileName) {
         // nice lambda to sort based on their order date
         // the nearest order dates are at the top

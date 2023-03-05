@@ -48,10 +48,19 @@ public class FlooringView implements View {
 
     }
 
+    /**
+     * Read an integer from io
+     * @param prompt The message to prompt a user for input
+     * @return The input from the user
+     */
     public int readInt(String prompt) {
         return io.readInt(prompt);
     }
 
+    /**
+     * Get FlooringOrder information necessary for a FlooringOrder construction
+     * @return A map of all user inputs
+     */
     public Map<String, String> getFlooringOrderInfoFromInput() {
         String customerName = io.readString("Enter your name: ");
         while (!validateCustomerName(customerName)) {
@@ -75,6 +84,10 @@ public class FlooringView implements View {
         return map;
     }
 
+    /**
+     * Gets the orderDate and orderName necessary for targeting orders to be edited/removed/backed up
+     * @return An array of Strings containing the orderDate and orderNumber
+     */
     public String[] getFlooringOrderInfo() {
         String orderDate = io.readString("Enter the order fulfill date: ");
         String orderNumber = io.readString("Enter the order number: ");
@@ -83,20 +96,22 @@ public class FlooringView implements View {
         return orderInfoToDelete;
     }
 
-    public String getFlooringOrderCustomerName(String prompt) {
-        return io.readString(prompt);
-    }
-
-    public String getFlooringOrderDate(String prompt) {
-        return io.readString(prompt);
-    }
-
+    /**
+     * Validates the customerName inputted by the user
+     * This must contain letters, numbers, commas, periods and spaces only
+     * @param customerName The candidate customerName that the user entered
+     * @return Boolean indicating if the customerName is valid, and matches the constraints
+     */
     public boolean validateCustomerName(String customerName) {
         return (customerName.matches("^[.a-zA-Z0-9, ]+$"));
-
-
     }
 
+    /**
+     * Validates the orderDate inputted by the user
+     * This must be a valid date in MMDDYYYY format, and must be in the future (includes the current day)
+     * @param orderDate The orderDate that the user entered
+     * @return Boolean indicating if the date is valid, and in the future
+     */
     private boolean validateOrderDate(String orderDate) {
         if (orderDate.length() != 8) {
             return false;
@@ -113,6 +128,12 @@ public class FlooringView implements View {
         return (orderDateFormatted.compareTo(currentDateFormatted) >= 0);
     }
 
+    /**
+     * Gets a new property value from the user
+     * @param propertyToBeUpdated The type of property to be updated
+     * @param currentPropertyValue The updated value of the property, supplied by the user
+     * @return The user-updated property value
+     */
     public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
         String newPropertyValue =  io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
         if (newPropertyValue == null || newPropertyValue.length() == 0) {

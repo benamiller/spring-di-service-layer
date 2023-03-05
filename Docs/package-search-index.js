@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"com.hactually"},{"l":"com.hactually.controller"},{"l":"com.hactually.dao"},{"l":"com.hactually.dto"},{"l":"com.hactually.service"},{"l":"com.hactually.ui"}]

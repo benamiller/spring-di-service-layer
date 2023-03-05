@@ -8,10 +8,19 @@ import java.util.Scanner;
 public class UserIO {
     Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Prints a message to standard out
+     * @param message The message to be printed
+     */
     public void print(String message) {
         System.out.println(message);
     }
 
+    /**
+     * Reads a String from standard input
+     * @param message The message to prompt the user for input
+     * @return The input from the user
+     */
     public String readString(String message) {
         System.out.println(message);
         return scanner.nextLine();
@@ -40,6 +49,12 @@ public class UserIO {
         return num;
     }
 
+    /**
+     * Reads a double from the user, with a minimum value
+     * @param prompt The message to prompt the user for input
+     * @param minimumArea The minimum value accepted
+     * @return The String value of the valid input
+     */
     public String readDoubleAsString(String prompt, double minimumArea) {
         double result;
         do {

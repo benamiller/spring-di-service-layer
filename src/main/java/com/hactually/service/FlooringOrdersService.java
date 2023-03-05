@@ -25,10 +25,9 @@ public class FlooringOrdersService {
         this.flooringOrders = flooringOrders;
     }
 
-    public void getOrderByDateAndOrderNumber(String orderDate, int orderNumber) {
-
-    }
-
+    /**
+     * Gets all order files and delegates displaying to the dao layer
+     */
     public void displayOrders() {
         final String ordersDirectoryPath = "./Orders";
 
@@ -54,6 +53,9 @@ public class FlooringOrdersService {
         });
     }
 
+    /**
+     * Creates and persists a new FlooringOrder
+     */
     public void createOrder() {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
         BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
@@ -78,6 +80,9 @@ public class FlooringOrdersService {
 
     }
 
+    /**
+     * Edits an existing FlooringOrder on disk
+     */
     public void editOrder() {
 
         // Asks the user for orderDate, and orderNumber
@@ -103,11 +108,17 @@ public class FlooringOrdersService {
         flooringOrders.editOrder(orderInfoToEdit, updatedProperties);
     }
 
+    /**
+     * Removes a FlooringOrder
+     */
     public void removeOrder() {
         String[] orderInfoToDelete = view.getFlooringOrderInfo();
         flooringOrders.removeOrder(orderInfoToDelete);
     }
 
+    /**
+     * Exports all order data ta a backup directory and file
+     */
     public void exportData() {
         final String ordersDirectoryPath = "./Orders";
 
@@ -131,10 +142,9 @@ public class FlooringOrdersService {
         flooringOrders.exportFiles(validFiles, "./Backup/DataExport.txt");
     }
 
-    public boolean isFutureDate(LocalDate date) {
-        return false;
-    }
-
+    /**
+     * Display the menu of functionality
+     */
     public void printMenu() {
         List<String> menuItems =
                 new ArrayList<>(Arrays.asList(
@@ -147,6 +157,11 @@ public class FlooringOrdersService {
         view.printMenu(menuItems);
     }
 
+    /**
+     * Read an integer from the view
+     * @param prompt The message to prompt the user
+     * @return The user input
+     */
     public int readInt(String prompt) {
         return view.readInt(prompt);
     }
@@ -155,10 +170,18 @@ public class FlooringOrdersService {
         view.print(message);
     }
 
+    /**
+     * Fetches the taxRates from a given file
+     * @param filename The file in which to gather taxRates for states
+     */
     public void fetchTaxRates(String filename) {
         flooringOrders.fetchTaxRates(filename);
     }
 
+    /**
+     * Fetches the product and labour costs per sq ft.
+     * @param filename The file in which to gather costs data for productTypes
+     */
     public void fetchProductCosts(String filename) {
         flooringOrders.fetchProductTypeCosts(filename);
     }

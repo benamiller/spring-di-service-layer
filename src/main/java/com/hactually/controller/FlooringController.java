@@ -4,6 +4,9 @@ import com.hactually.service.FlooringOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * FlooringController controls and delegates
+ */
 @Component
 public class FlooringController {
     private FlooringOrdersService ordersService;
@@ -14,6 +17,11 @@ public class FlooringController {
         this.ordersService = ordersService;
     }
 
+
+    /**
+     * Begins the program and asks the user which operation they wish to perform
+     * Until the user wishes to quit, they will be prompted after each successful operation
+     */
     public void start() {
         final String PRODUCT_COSTS_FILENAME = "./Data/Products.txt";
         final String TAX_RATES_FILENAME = "./Data/Taxes.txt";
