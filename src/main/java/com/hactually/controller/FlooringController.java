@@ -38,23 +38,18 @@ public class FlooringController {
 
             switch (menuSelection) {
                 case 1:
-                    System.out.println("Display orders");
                     ordersService.displayOrders();
                     break;
                 case 2:
-                    System.out.println("Add order");
                     ordersService.createOrder();
                     break;
                 case 3:
-                    System.out.println("Edit order");
                     ordersService.editOrder();
                     break;
                 case 4:
-                    System.out.println("Remove order");
                     ordersService.removeOrder();
                     break;
                 case 5:
-                    System.out.println("Export data");
                     ordersService.exportData();
                     break;
                 case 6:
