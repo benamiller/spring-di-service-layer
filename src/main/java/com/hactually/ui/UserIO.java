@@ -56,9 +56,13 @@ public class UserIO {
      * @return The String value of the valid input
      */
     public String readDoubleAsString(String prompt, double minimumArea) {
-        double result;
+        double result = -10.0;
         do {
-            result = Double.parseDouble(readString(prompt));
+            try {
+                result = Double.parseDouble(readString(prompt));
+            } catch(NumberFormatException e) {
+                System.out.println("Please enter a valid double :)");
+            }
         } while (result < minimumArea);
 
         return String.valueOf(result);

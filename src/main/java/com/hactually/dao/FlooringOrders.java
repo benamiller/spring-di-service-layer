@@ -105,29 +105,41 @@ public class FlooringOrders implements Orders {
 
     /**
      * Gets the taxRate for a given state (initialized i.e. CA for California)
+     * Returns a negative value if no such state exists
      * @param state The state whose taxRate should be returned
      * @return The BigDecimal value of the state's taxRate
      */
     public BigDecimal getFlooringOrderTaxRate(String state) {
-        return BigDecimal.valueOf(taxRatesByState.get(state));
+        if (taxRatesByState.get(state) != null) {
+            return BigDecimal.valueOf(taxRatesByState.get(state));
+        }
+        return BigDecimal.valueOf(-10);
     }
 
     /**
      * Gets the cost per sq ft. of a given productType
+     * Return a negative value if no such productType exists
      * @param productType The productType whose cost per sq ft. should be returned
      * @return The BigDecimal value of the material cost per sq ft.
      */
     public BigDecimal getFlooringOrderCostPerSquareFoot(String productType) {
-        return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[0]);
+        if (productCostAndLabourCostPerSquareFoot.get(productType)[0] != null) {
+            return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[0]);
+        }
+        return BigDecimal.valueOf(-10);
     }
 
     /**
      * Gets the labour cost per sq ft. of a given productType
+     * Returns a negative value if no such state exists
      * @param productType The productType whose labour cost per sq ft. should be returned
      * @return The BigDecimal value of the labour cost per sq ft.
      */
     public BigDecimal getFlooringOrderLabourCostPerSquareFoot(String productType) {
-        return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
+        if (productCostAndLabourCostPerSquareFoot.get(productType)[1] != null) {
+            return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
+        }
+        return BigDecimal.valueOf(-10);
     }
 
     /**

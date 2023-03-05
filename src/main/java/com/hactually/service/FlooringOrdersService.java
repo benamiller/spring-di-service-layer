@@ -65,6 +65,17 @@ public class FlooringOrdersService {
         int orderNumber = flooringOrders.getNextOrderNumber();
         // call dao to add the order to file
         // generate order number
+
+
+        // see if any inputs were invalid
+        if (taxRate.compareTo(BigDecimal.ZERO) > 0) {
+
+        } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
+
+        } else if (labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
+
+        }
+
         FlooringOrder flooringOrder = new FlooringOrder(
                 orderNumber,
                 flooringOrderInputs.get("orderDate"),

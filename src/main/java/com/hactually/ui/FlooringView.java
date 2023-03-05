@@ -72,8 +72,8 @@ public class FlooringView implements View {
             orderDate = io.readString("Please enter a date in the future in the format, MMDDYYYY: ");
         }
 
-        String state = io.readString("Enter your state initialism: ");
-        String productType = io.readString("Enter the product type: ");
+        String state = io.readString("Enter your state initialism (CA, TX, WA, etc): ");
+        String productType = io.readString("Enter the product type (Carpet, Tile, etc): ");
         String area = io.readDoubleAsString("Enter your floor area (must be at least 100 sq ft.): ", 100);
         Map<String, String> map = new HashMap<>();
         map.put("customerName", customerName);

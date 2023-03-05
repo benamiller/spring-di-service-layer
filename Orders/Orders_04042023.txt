@@ -1,0 +1,2 @@
+OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total
+10,Ben,TX,4.45,Tile,200.0,3.5,4.15,700.00,830.000,61.20,1591.20
