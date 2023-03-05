@@ -300,4 +300,29 @@ public class FlooringOrders implements Orders {
         FlooringOrder flooringOrder = new FlooringOrder(orderNumber, orderDate, customerName, state, taxRate, productType, area, costPerSquareFoot, labourCostPerSquareFoot);
         return flooringOrder;
     }
+
+    public void displayOrdersForDate(File file) {
+
+        Scanner scanner;
+        try {
+
+            scanner = new Scanner(
+                    new BufferedReader(
+                            new FileReader(file)
+                    )
+            );
+
+            // ignore the header
+            scanner.nextLine();
+            while(scanner.hasNextLine()) {
+                String flooringOrderInfo = scanner.nextLine();
+                System.out.println(flooringOrderInfo);
+
+            }
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

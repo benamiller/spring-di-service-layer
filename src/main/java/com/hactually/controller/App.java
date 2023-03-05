@@ -27,7 +27,8 @@ public class App {
 
             switch (menuSelection) {
                 case 1:
-                    System.out.println("Display an order");
+                    System.out.println("Display orders");
+                    ordersService.displayOrders();
                     break;
                 case 2:
                     System.out.println("Add order");
@@ -48,6 +49,9 @@ public class App {
                     shouldContinue = false;
                     break;
             }
+
+            // Make some space
+            System.out.println("");
         }
     }
 

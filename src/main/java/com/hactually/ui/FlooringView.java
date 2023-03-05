@@ -22,6 +22,7 @@ public class FlooringView implements View {
 
     // Add list of menu items here, and then use a stream to print each
     public void printMenu(List<String> menuItems) {
+        io.print("MAIN MENU");
         io.print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
         menuItems.forEach(System.out::println);
         io.print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");

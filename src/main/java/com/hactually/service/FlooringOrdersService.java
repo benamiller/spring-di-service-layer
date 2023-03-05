@@ -4,7 +4,9 @@ import com.hactually.dao.FlooringOrders;
 import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
 
+import java.io.File;
 import java.math.BigDecimal;
+import java.sql.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -21,8 +23,30 @@ public class FlooringOrdersService {
     public void getOrderByDateAndOrderNumber(String orderDate, int orderNumber) {
 
     }
-    public String displayOrder(FlooringOrder flooringOrder) {
-        return flooringOrder.toString();
+
+    public void displayOrders() {
+        final String ordersDirectoryPath = "./Orders";
+
+        File ordersDirectory = new File(ordersDirectoryPath);
+        File[] files = ordersDirectory.listFiles();
+
+        if (files == null) {
+            return;
+        }
+
+        ArrayList<File> validFiles = new ArrayList<>();
+
+
+        for (File file : files) {
+            if (file.isFile()) {
+                validFiles.add(file);
+            }
+        }
+
+        // Could be rewritten as validFiles.forEach(this::displayOrderForDate);
+        validFiles.stream().forEach((file) -> {
+            flooringOrders.displayOrdersForDate(file);
+        });
     }
 
     public void createOrder() {
@@ -90,7 +114,7 @@ public class FlooringOrdersService {
     public void printMenu() {
         List<String> menuItems =
                 new ArrayList<>(Arrays.asList(
-                        "* 1. Display Order",
+                        "* 1. Display Orders",
                         "* 2. Add an Order",
                         "* 3. Edit an Order",
                         "* 4. Remove an Order",
