@@ -49,11 +49,49 @@ public class ServiceTest {
 
     @Test
     public void fetchTaxRates() {
-        assertEquals(1, 1);
+        FlooringOrders flooringOrders = new FlooringOrders();
+        flooringOrders.fetchTaxRates("Test_Data/Taxes.txt");
+
+        BigDecimal actualCATaxRate = flooringOrders.getFlooringOrderTaxRate("CA");
+        BigDecimal expectedCATaxRate = BigDecimal.valueOf(25.00);
+
+        BigDecimal actualTXTaxRate = flooringOrders.getFlooringOrderTaxRate("TX");
+        BigDecimal expectedTXTaxRate = BigDecimal.valueOf(4.45);
+
+        BigDecimal actualWATaxRate = flooringOrders.getFlooringOrderTaxRate("WA");
+        BigDecimal expectedWATaxRate = BigDecimal.valueOf(9.25);
+
+        BigDecimal actualKYTaxRate = flooringOrders.getFlooringOrderTaxRate("KY");
+        BigDecimal expectedKYTaxRate = BigDecimal.valueOf(6.00);
+
+        assertEquals(actualCATaxRate, expectedCATaxRate);
+        assertEquals(actualTXTaxRate, expectedTXTaxRate);
+        assertEquals(actualKYTaxRate, expectedKYTaxRate);
+        assertEquals(actualWATaxRate, expectedWATaxRate);
+
     }
 
     @Test
     public void fetchCostPerSquareFootAndLabourCostPerSquareFoot() {
-        assertEquals(1, 1);
+        FlooringOrders flooringOrders = new FlooringOrders();
+        flooringOrders.fetchProductTypeCosts("Test_Data/Products.txt");
+
+        BigDecimal actualCarpetCost = flooringOrders.getFlooringOrderCostPerSquareFoot("Carpet");
+        BigDecimal expectedCarpetCost = BigDecimal.valueOf(2.25);
+
+        BigDecimal actualLaminateCost = flooringOrders.getFlooringOrderCostPerSquareFoot("Laminate");
+        BigDecimal expectedLaminateCost = BigDecimal.valueOf(1.75);
+
+        BigDecimal actualTileCost = flooringOrders.getFlooringOrderCostPerSquareFoot("Tile");
+        BigDecimal expectedTileCost = BigDecimal.valueOf(3.50);
+
+        BigDecimal actualWoodCost = flooringOrders.getFlooringOrderCostPerSquareFoot("Wood");
+        BigDecimal expectedWoodCost = BigDecimal.valueOf(5.15);
+
+        assertEquals(expectedCarpetCost, actualCarpetCost);
+        assertEquals(expectedLaminateCost, actualLaminateCost);
+        assertEquals(expectedTileCost, actualTileCost);
+        assertEquals(expectedWoodCost, actualWoodCost);
+
     }
 }

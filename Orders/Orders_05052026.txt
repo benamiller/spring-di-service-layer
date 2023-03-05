@@ -1,2 +1,2 @@
 OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total
-7,Joanna,TX,4.45,Carpet,15.0,2.25,2.1,33.750,31.50,2.61,67.86
+7,Joanna,CA,25.0,Carpet,15.0,2.25,2.1,33.750,31.50,16.31,81.56

@@ -1,2 +1,3 @@
 OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total
 6,Jonji,TX,4.45,Wood,5.0,5.15,4.75,25.750,23.750,1.98,51.48
+8,Joanna,TX,4.45,Laminate,17.0,1.75,2.1,29.750,35.70,2.62,68.07
