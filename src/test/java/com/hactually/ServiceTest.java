@@ -5,6 +5,7 @@ import com.hactually.dto.FlooringOrder;
 import com.hactually.service.FlooringOrdersService;
 import com.hactually.ui.FlooringView;
 import com.hactually.ui.UserIO;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -22,6 +23,11 @@ public class ServiceTest {
         FlooringView view = new FlooringView(io);
         FlooringOrders flooringOrders = new FlooringOrders();
         ordersService = new FlooringOrdersService(view, flooringOrders);
+    }
+
+    @AfterClass
+    public static void reset() {
+        // Restore any files
     }
 
     @Test
@@ -72,7 +78,7 @@ public class ServiceTest {
     }
 
     @Test
-    public void fetchCostPerSquareFootAndLabourCostPerSquareFoot() {
+    public void fetchCostPerSquareFoot() {
         FlooringOrders flooringOrders = new FlooringOrders();
         flooringOrders.fetchProductTypeCosts("Test_Data/Products.txt");
 
@@ -87,6 +93,30 @@ public class ServiceTest {
 
         BigDecimal actualWoodCost = flooringOrders.getFlooringOrderCostPerSquareFoot("Wood");
         BigDecimal expectedWoodCost = BigDecimal.valueOf(5.15);
+
+        assertEquals(expectedCarpetCost, actualCarpetCost);
+        assertEquals(expectedLaminateCost, actualLaminateCost);
+        assertEquals(expectedTileCost, actualTileCost);
+        assertEquals(expectedWoodCost, actualWoodCost);
+
+    }
+
+    @Test
+    public void fetchLabourCostPerSquareFoot() {
+        FlooringOrders flooringOrders = new FlooringOrders();
+        flooringOrders.fetchProductTypeCosts("Test_Data/Products.txt");
+
+        BigDecimal actualCarpetCost = flooringOrders.getFlooringOrderLabourCostPerSquareFoot("Carpet");
+        BigDecimal expectedCarpetCost = BigDecimal.valueOf(2.10);
+
+        BigDecimal actualLaminateCost = flooringOrders.getFlooringOrderLabourCostPerSquareFoot("Laminate");
+        BigDecimal expectedLaminateCost = BigDecimal.valueOf(2.10);
+
+        BigDecimal actualTileCost = flooringOrders.getFlooringOrderLabourCostPerSquareFoot("Tile");
+        BigDecimal expectedTileCost = BigDecimal.valueOf(4.15);
+
+        BigDecimal actualWoodCost = flooringOrders.getFlooringOrderLabourCostPerSquareFoot("Wood");
+        BigDecimal expectedWoodCost = BigDecimal.valueOf(4.75);
 
         assertEquals(expectedCarpetCost, actualCarpetCost);
         assertEquals(expectedLaminateCost, actualLaminateCost);

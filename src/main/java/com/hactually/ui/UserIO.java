@@ -36,4 +36,13 @@ public class UserIO {
         }
         return num;
     }
+
+    public String readDoubleAsString(String prompt, double minimumArea) {
+        double result;
+        do {
+            result = Double.parseDouble(readString(prompt));
+        } while (result < minimumArea);
+
+        return String.valueOf(result);
+    }
 }
