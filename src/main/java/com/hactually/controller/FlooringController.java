@@ -1,5 +1,7 @@
 package com.hactually.controller;
 
+import com.hactually.exception.ProductTypeNotFoundException;
+import com.hactually.exception.TaxRateNotFoundException;
 import com.hactually.service.FlooringOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,7 +43,11 @@ public class FlooringController {
                     ordersService.displayOrders();
                     break;
                 case 2:
-                    ordersService.createOrder();
+                    try {
+                        ordersService.createOrder();
+                    } catch (ProductTypeNotFoundException | TaxRateNotFoundException e) {
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case 3:
                     ordersService.editOrder();

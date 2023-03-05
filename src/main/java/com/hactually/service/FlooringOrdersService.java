@@ -2,6 +2,8 @@ package com.hactually.service;
 
 import com.hactually.dao.FlooringOrders;
 import com.hactually.dto.FlooringOrder;
+import com.hactually.exception.ProductTypeNotFoundException;
+import com.hactually.exception.TaxRateNotFoundException;
 import com.hactually.ui.FlooringView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -56,7 +58,7 @@ public class FlooringOrdersService {
     /**
      * Creates and persists a new FlooringOrder
      */
-    public void createOrder() {
+    public void createOrder() throws ProductTypeNotFoundException, TaxRateNotFoundException {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
         BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
         BigDecimal costPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(flooringOrderInputs.get("productType"));
@@ -69,11 +71,9 @@ public class FlooringOrdersService {
 
         // see if any inputs were invalid
         if (taxRate.compareTo(BigDecimal.ZERO) > 0) {
-
-        } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
-
-        } else if (labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
-
+            throw new TaxRateNotFoundException("State not found. Try to create an order again? :)");
+        } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) > 0 || labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
+            throw new ProductTypeNotFoundException("Product type not found. Try to create an order again? :)");
         }
 
         FlooringOrder flooringOrder = new FlooringOrder(
