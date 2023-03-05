@@ -325,4 +325,51 @@ public class FlooringOrders implements Orders {
             throw new RuntimeException(e);
         }
     }
+
+    public void exportFiles(ArrayList<File> files) {
+        // nice lambda to sort based on their order date
+        // the nearest order dates are at the top
+        files.sort((a, b) -> b.getName().compareTo(a.getName()));
+
+        FileWriter fileWriter = null;
+        try {
+            fileWriter = new FileWriter("./Backup/DataExport.txt");
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+
+            printWriter.println("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total,OrderDate");
+
+            for (File file : files) {
+                String fileName = file.getName();
+                String month = fileName.substring(7, 9);
+                String day = fileName.substring(9, 11);
+                String year = fileName.substring(11, 15);
+                String orderDate = month + "-" + day + "-" + year;
+
+                Scanner scanner = new Scanner(
+                        new BufferedReader(
+                                new FileReader(file)
+                        )
+                );
+
+                // Ignore the header
+                scanner.nextLine();
+                while (scanner.hasNextLine()) {
+                    String orderString = scanner.nextLine();
+                    printWriter.println(orderString + "," + orderDate);
+                }
+
+
+            }
+
+            printWriter.flush();
+            printWriter.close();
+
+        } catch (IOException e) {
+            System.out.println("Could not export data, please try again");
+            System.out.println(Arrays.toString(e.getStackTrace()));
+        }
+
+
+
+    }
 }

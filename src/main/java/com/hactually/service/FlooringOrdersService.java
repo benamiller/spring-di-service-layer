@@ -104,7 +104,26 @@ public class FlooringOrdersService {
     }
 
     public void exportData() {
+        final String ordersDirectoryPath = "./Orders";
 
+        File ordersDirectory = new File(ordersDirectoryPath);
+        File[] files = ordersDirectory.listFiles();
+
+        if (files == null) {
+            return;
+        }
+
+        ArrayList<File> validFiles = new ArrayList<>();
+
+
+        for (File file : files) {
+            if (file.isFile()) {
+                validFiles.add(file);
+            }
+        }
+        System.out.println(validFiles.get(0));
+
+        flooringOrders.exportFiles(validFiles);
     }
 
     public boolean isFutureDate(LocalDate date) {

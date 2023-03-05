@@ -44,6 +44,7 @@ public class App {
                     break;
                 case 5:
                     System.out.println("Export data");
+                    ordersService.exportData();
                     break;
                 case 6:
                     shouldContinue = false;
