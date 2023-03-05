@@ -1,9 +1,12 @@
 package com.hactually.dto;
 
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
+@Component
 public class FlooringOrder implements Order {
     // Map orderNumber to FlooringOrder object with orderNumber as a property, and the date
     private int orderNumber;

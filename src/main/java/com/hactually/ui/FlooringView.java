@@ -2,13 +2,18 @@ package com.hactually.ui;
 
 import com.hactually.dto.FlooringOrder;
 import com.hactually.dto.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.*;
 
+@Component
 public class FlooringView implements View {
-    private final UserIO io;
+    private UserIO io;
+
+    @Autowired
     public FlooringView(UserIO io) {
         this.io = io;
     }

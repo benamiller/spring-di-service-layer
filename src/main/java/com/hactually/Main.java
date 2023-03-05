@@ -1,21 +1,28 @@
 package com.hactually;
 
-import com.hactually.controller.App;
-import com.hactually.dao.FlooringOrders;
-import com.hactually.service.FlooringOrdersService;
-import com.hactually.ui.FlooringView;
-import com.hactually.ui.UserIO;
+import com.hactually.controller.FlooringController;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
         // create service layer, create view
         // pass these to the controller
-        FlooringOrders flooringOrders = new FlooringOrders();
-        UserIO io = new UserIO();
-        FlooringView view = new FlooringView(io);
-        FlooringOrdersService ordersService = new FlooringOrdersService(view, flooringOrders);
 
-        App app = new App(ordersService);
-        app.start();
+        /* PRE-SPRING IMPLEMENTATION */
+//        FlooringOrders flooringOrders = new FlooringOrders();
+//        UserIO io = new UserIO();
+//        FlooringView view = new FlooringView(io);
+//        FlooringOrdersService ordersService = new FlooringOrdersService(view, flooringOrders);
+//
+//        App app = new App(ordersService);
+//        app.start();
+
+
+        AnnotationConfigApplicationContext appContext = new AnnotationConfigApplicationContext();
+        appContext.scan("com.hactually");
+        appContext.refresh();
+
+        FlooringController controller = appContext.getBean("flooringController", FlooringController.class);
+        controller.start();
     }
 }

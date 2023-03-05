@@ -1,7 +1,10 @@
 package com.hactually.ui;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Scanner;
 
+@Component
 public class UserIO {
     Scanner scanner = new Scanner(System.in);
 

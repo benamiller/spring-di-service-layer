@@ -1,13 +1,16 @@
 package com.hactually.controller;
 
 import com.hactually.service.FlooringOrdersService;
-import com.hactually.ui.FlooringView;
-import com.hactually.ui.View;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public class App {
-    private final FlooringOrdersService ordersService;
+@Component
+public class FlooringController {
+    private FlooringOrdersService ordersService;
     // Should have a service layer Order object
-    public App(FlooringOrdersService ordersService) {
+
+    @Autowired
+    public FlooringController(FlooringOrdersService ordersService) {
         this.ordersService = ordersService;
     }
 

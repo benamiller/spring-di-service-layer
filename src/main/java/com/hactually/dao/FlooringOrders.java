@@ -1,11 +1,13 @@
 package com.hactually.dao;
 
 import com.hactually.dto.FlooringOrder;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
+@Component
 public class FlooringOrders implements Orders {
     private Map<String, Double> taxRatesByState = new HashMap<>();
     private Map<String, Double[]> productCostAndLabourCostPerSquareFoot = new HashMap<>();

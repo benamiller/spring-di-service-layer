@@ -3,6 +3,8 @@ package com.hactually.service;
 import com.hactually.dao.FlooringOrders;
 import com.hactually.dto.FlooringOrder;
 import com.hactually.ui.FlooringView;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -11,10 +13,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+@Component
 public class FlooringOrdersService {
 
     private FlooringView view;
     private FlooringOrders flooringOrders;
+
+    @Autowired
     public FlooringOrdersService(FlooringView view, FlooringOrders flooringOrders) {
         this.view = view;
         this.flooringOrders = flooringOrders;
