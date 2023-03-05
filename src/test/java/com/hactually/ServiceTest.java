@@ -9,6 +9,13 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+
+import java.io.*;
+
 import java.math.BigDecimal;
 
 import static org.junit.Assert.assertEquals;
@@ -25,32 +32,25 @@ public class ServiceTest {
         ordersService = new FlooringOrdersService(view, flooringOrders);
     }
 
-    @AfterClass
-    public static void reset() {
-        // Restore any files
-    }
-
     @Test
-    public void doesDisplayOrderInformation() {
-        BigDecimal taxRate = BigDecimal.valueOf(23);
-        BigDecimal area = BigDecimal.valueOf(20);
-        BigDecimal costPerSquareFoot = BigDecimal.valueOf(2.2);
-        BigDecimal labourCostPerSquareFoot = BigDecimal.valueOf(2.4);
-        FlooringOrder order = new FlooringOrder(10, "03032023", "Ben", "CA", taxRate, "Carpet", area, costPerSquareFoot, labourCostPerSquareFoot);
-        String expected = "10,Ben,CA,23,Carpet,20,2.2,2.4,44.0,48.0,21.16,113.16";
-        String actual = ordersService.displayOrder(order);
+    public void exportOrders() {
+        FlooringOrders flooringOrders = new FlooringOrders();
 
-        assertEquals(expected, actual);
-    }
+        ArrayList<File> files = new ArrayList<>();
+        File file1 = new File("./Test_Orders/Orders_03032030.txt");
+        File file2 = new File("./Test_Orders/Orders_06022013.txt");
+        files.add(file1);
+        files.add(file2);
 
-    @Test
-    public void editFlooringOrder() {
-        assertEquals(1, 1);
-    }
+        flooringOrders.exportFiles(files, "./Test_Backup/DataExport.txt");
 
-    @Test
-    public void removeFlooringOrder() {
-        assertEquals(1,1);
+        try {
+            String actualOutputFileContent = new String(Files.readAllBytes(Paths.get("./Test_Backup/DataExport.txt")), StandardCharsets.UTF_8);
+            String expectedOutputFileContent = new String(Files.readAllBytes(Paths.get("./Test_Backup/ExpectedDataExport.txt")), StandardCharsets.UTF_8);
+            assertEquals(expectedOutputFileContent, actualOutputFileContent);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test

@@ -326,14 +326,14 @@ public class FlooringOrders implements Orders {
         }
     }
 
-    public void exportFiles(ArrayList<File> files) {
+    public void exportFiles(ArrayList<File> files, String backupFileName) {
         // nice lambda to sort based on their order date
         // the nearest order dates are at the top
         files.sort((a, b) -> b.getName().compareTo(a.getName()));
 
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("./Backup/DataExport.txt");
+            fileWriter = new FileWriter(backupFileName);
             PrintWriter printWriter = new PrintWriter(fileWriter);
 
             printWriter.println("OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total,OrderDate");

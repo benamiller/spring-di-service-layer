@@ -123,7 +123,7 @@ public class FlooringOrdersService {
         }
         System.out.println(validFiles.get(0));
 
-        flooringOrders.exportFiles(validFiles);
+        flooringOrders.exportFiles(validFiles, "./Backup/DataExport.txt");
     }
 
     public boolean isFutureDate(LocalDate date) {
