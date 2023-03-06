@@ -105,6 +105,11 @@ public class FlooringOrdersService implements OrdersService {
         // pass the orderDate, and orderNumber to get current property values, if the order exists
         String[] currentOrderInfo = flooringOrders.getEditableOrderInfo(orderInfoToEdit[0], orderInfoToEdit[1]);
 
+        if (currentOrderInfo == null) {
+            System.out.println("Order does not exist :( Please try again");
+            return;
+        }
+
         String newCustomerName = view.getNewPropertyValue("customer name", currentOrderInfo[0]);
         String newState = view.getNewPropertyValue("state", currentOrderInfo[1]);
         String newProductType = view.getNewPropertyValue("product type", currentOrderInfo[2]);
