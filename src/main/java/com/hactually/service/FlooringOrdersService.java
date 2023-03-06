@@ -71,9 +71,9 @@ public class FlooringOrdersService {
 
         // see if any inputs were invalid
         if (taxRate.compareTo(BigDecimal.ZERO) > 0) {
-            throw new TaxRateNotFoundException("State not found. Try to create an order again? :)");
+            throw new TaxRateNotFoundException("Product type not found. Try to create an order again? :)");
         } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) > 0 || labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
-            throw new ProductTypeNotFoundException("Product type not found. Try to create an order again? :)");
+            throw new ProductTypeNotFoundException("State type not found. Try to create an order again? :)");
         }
 
         FlooringOrder flooringOrder = new FlooringOrder(
@@ -106,6 +106,10 @@ public class FlooringOrdersService {
         String newState = view.getNewPropertyValue("state", currentOrderInfo[1]);
         String newProductType = view.getNewPropertyValue("product type", currentOrderInfo[2]);
         String newArea = view.getNewPropertyValue("area", currentOrderInfo[3]);
+
+        BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(newState);
+        BigDecimal costPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(newProductType);
+
 
         System.out.println("New customer name: " + newCustomerName);
         System.out.println("New state: " + newState);

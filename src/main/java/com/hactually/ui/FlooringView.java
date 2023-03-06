@@ -135,11 +135,24 @@ public class FlooringView implements View {
      * @return The user-updated property value
      */
     public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
-        String newPropertyValue =  io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
+        String newPropertyValue;
+        if (propertyToBeUpdated.equals("area")) {
+            newPropertyValue = io.readDoubleAsString("Enter a new area (minimum 100 sq ft.)", 100);
+        } else {
+            newPropertyValue = io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
+        }
+
+        if (propertyToBeUpdated.equals("customer name")) {
+            while (!validateCustomerName(newPropertyValue)) {
+                newPropertyValue = io.readString("Please enter a name with letters, numbers, commas, periods, and spaces only: ");
+            }
+        }
+
         if (newPropertyValue == null || newPropertyValue.length() == 0) {
             return currentPropertyValue;
         }
 
         return newPropertyValue;
     }
+
 }

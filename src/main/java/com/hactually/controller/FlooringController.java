@@ -46,7 +46,9 @@ public class FlooringController {
                     try {
                         ordersService.createOrder();
                     } catch (ProductTypeNotFoundException | TaxRateNotFoundException e) {
-                        System.out.println(e.getMessage());
+                        System.out.println("\n* * * * * * * * * * * * * * * * * * * * * *\n" +
+                                e.getMessage().toUpperCase() +
+                                "\n* * * * * * * * * * * * * * * * * * * * * *");
                     }
                     break;
                 case 3:

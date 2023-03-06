@@ -123,7 +123,7 @@ public class FlooringOrders implements Orders {
      * @return The BigDecimal value of the material cost per sq ft.
      */
     public BigDecimal getFlooringOrderCostPerSquareFoot(String productType) {
-        if (productCostAndLabourCostPerSquareFoot.get(productType)[0] != null) {
+        if (productCostAndLabourCostPerSquareFoot.get(productType) != null) {
             return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[0]);
         }
         return BigDecimal.valueOf(-10);
@@ -136,7 +136,7 @@ public class FlooringOrders implements Orders {
      * @return The BigDecimal value of the labour cost per sq ft.
      */
     public BigDecimal getFlooringOrderLabourCostPerSquareFoot(String productType) {
-        if (productCostAndLabourCostPerSquareFoot.get(productType)[1] != null) {
+        if (productCostAndLabourCostPerSquareFoot.get(productType) != null) {
             return BigDecimal.valueOf(productCostAndLabourCostPerSquareFoot.get(productType)[1]);
         }
         return BigDecimal.valueOf(-10);
