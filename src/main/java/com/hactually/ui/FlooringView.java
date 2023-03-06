@@ -107,7 +107,7 @@ public class FlooringView implements GenericView {
     public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
         String newPropertyValue;
         if (propertyToBeUpdated.equals("area")) {
-            newPropertyValue = io.readDoubleAsString("Enter a new area (minimum 100 sq ft.)", 100);
+            newPropertyValue = io.readNewAreaDoubleAsString("Enter a new area (minimum 100 sq ft.)", 100);
         } else {
             newPropertyValue = io.readString("Enter a new " + propertyToBeUpdated + " (" + currentPropertyValue + ")");
         }

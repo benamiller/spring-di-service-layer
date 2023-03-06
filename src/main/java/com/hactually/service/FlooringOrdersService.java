@@ -110,6 +110,10 @@ public class FlooringOrdersService implements OrdersService {
         String newProductType = view.getNewPropertyValue("product type", currentOrderInfo[2]);
         String newArea = view.getNewPropertyValue("area", currentOrderInfo[3]);
 
+        if (newArea.equals("")) {
+            newArea = currentOrderInfo[3];
+        }
+
         BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(newState);
         BigDecimal costPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(newProductType);
 

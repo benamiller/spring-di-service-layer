@@ -375,6 +375,8 @@ public class FlooringOrders implements Orders {
 
 
         FlooringOrder flooringOrder = new FlooringOrder(orderNumber, orderDate, customerName, state, taxRate, productType, area, costPerSquareFoot, labourCostPerSquareFoot);
+        System.out.println("Here is your updated order:\n\n" + flooringOrder);
+
         return flooringOrder;
     }
 

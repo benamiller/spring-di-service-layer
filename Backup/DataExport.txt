@@ -1,4 +1,5 @@
 OrderNumber,CustomerName,State,TaxRate,ProductType,Area,CostPerSquareFoot,LabourCostPerSquareFoot,MaterialCost,LabourCost,Tax,Total,OrderDate
+23,Joanna,TX,4.45,Tile,200.0,3.5,4.15,700.00,830.000,61.20,1591.20,10-23-2026
 11,Ben,Test,0,Tile,300.0,3.5,4.15,1050.00,1245.000,0.00,2295.00,06-07-2028
 2,Doctor Who,WA,9.25,Wood,243.00,5.15,4.75,1251.45,1154.25,216.51,2622.21,06-02-2013
 3,Albert Einstein,KY,6.00,Carpet,217.00,2.25,2.10,488.25,455.70,56.64,1000.59,06-02-2013

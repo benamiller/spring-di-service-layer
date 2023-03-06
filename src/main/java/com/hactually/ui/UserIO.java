@@ -67,4 +67,23 @@ public class UserIO {
 
         return String.valueOf(result);
     }
+
+    public String readNewAreaDoubleAsString(String prompt, int minimumArea) {
+        String result;
+        double actualValue = -10.0;
+        do {
+            try {
+                result = readString(prompt);
+                if (result.equals("")) {
+                    return "";
+                } else {
+                    actualValue = Double.parseDouble(result);
+                }
+            } catch(NumberFormatException e) {
+                System.out.println("Please enter a valid double :)");
+            }
+        } while (actualValue < minimumArea);
+
+        return String.valueOf(actualValue);
+    }
 }
