@@ -10,17 +10,19 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Component
-public class FlooringView implements View {
+public class FlooringView implements GenericView {
     private UserIO io;
 
     @Autowired
     public FlooringView(UserIO io) {
         this.io = io;
     }
+    @Override
     public void print(String message) {
         System.out.println(message);
     }
 
+    @Override
     public Order getInputAndCreateOrder() {
         return new FlooringOrder();
     }
@@ -33,26 +35,12 @@ public class FlooringView implements View {
         io.print("* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *");
     }
 
-    @Override
-    public void printStartBanner(String message) {
-
-    }
-
-    @Override
-    public void printSuccessBanner(String message) {
-
-    }
-
-    @Override
-    public void printFailureBanner(String message) {
-
-    }
-
     /**
      * Read an integer from io
      * @param prompt The message to prompt a user for input
      * @return The input from the user
      */
+    @Override
     public int readInt(String prompt) {
         return io.readInt(prompt);
     }
@@ -61,6 +49,7 @@ public class FlooringView implements View {
      * Get FlooringOrder information necessary for a FlooringOrder construction
      * @return A map of all user inputs
      */
+    @Override
     public Map<String, String> getFlooringOrderInfoFromInput() {
         String customerName = io.readString("Enter your name: ");
         while (!validateCustomerName(customerName)) {
@@ -69,7 +58,7 @@ public class FlooringView implements View {
 
         String orderDate = io.readString("Enter order date (MMDDYYYY): ");
         while (!validateOrderDate(orderDate)) {
-            orderDate = io.readString("Please enter a date in the future in the format, MMDDYYYY: ");
+            orderDate = io.readString("Please enter a valid date in the future in the format, MMDDYYYY: ");
         }
 
         String state = io.readString("Enter your state initialism (CA, TX, WA, etc): ");
@@ -88,6 +77,7 @@ public class FlooringView implements View {
      * Gets the orderDate and orderName necessary for targeting orders to be edited/removed/backed up
      * @return An array of Strings containing the orderDate and orderNumber
      */
+    @Override
     public String[] getFlooringOrderInfo() {
         String orderDate = io.readString("Enter the order fulfill date: ");
         String orderNumber = io.readString("Enter the order number: ");
@@ -102,30 +92,9 @@ public class FlooringView implements View {
      * @param customerName The candidate customerName that the user entered
      * @return Boolean indicating if the customerName is valid, and matches the constraints
      */
+    @Override
     public boolean validateCustomerName(String customerName) {
         return (customerName.matches("^[.a-zA-Z0-9, ]+$"));
-    }
-
-    /**
-     * Validates the orderDate inputted by the user
-     * This must be a valid date in MMDDYYYY format, and must be in the future (includes the current day)
-     * @param orderDate The orderDate that the user entered
-     * @return Boolean indicating if the date is valid, and in the future
-     */
-    private boolean validateOrderDate(String orderDate) {
-        if (orderDate.length() != 8) {
-            return false;
-        }
-
-        String orderYear = orderDate.substring(4);
-        String orderMonth = orderDate.substring(0, 2);
-        String orderDay = orderDate.substring(2, 4);
-        LocalDate dateToday = java.time.LocalDate.now();
-
-        String currentDateFormatted = dateToday.toString().replace("-", "");
-        String orderDateFormatted = orderYear + orderMonth + orderDay;
-
-        return (orderDateFormatted.compareTo(currentDateFormatted) >= 0);
     }
 
     /**
@@ -134,6 +103,7 @@ public class FlooringView implements View {
      * @param currentPropertyValue The updated value of the property, supplied by the user
      * @return The user-updated property value
      */
+    @Override
     public String getNewPropertyValue(String propertyToBeUpdated, String currentPropertyValue) {
         String newPropertyValue;
         if (propertyToBeUpdated.equals("area")) {

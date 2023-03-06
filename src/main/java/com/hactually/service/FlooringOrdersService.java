@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 @Component
-public class FlooringOrdersService {
+public class FlooringOrdersService implements OrdersService {
 
     private FlooringView view;
     private FlooringOrders flooringOrders;
@@ -30,6 +30,7 @@ public class FlooringOrdersService {
     /**
      * Gets all order files and delegates displaying to the dao layer
      */
+    @Override
     public void displayOrders() {
         final String ordersDirectoryPath = "./Orders";
 
@@ -58,6 +59,7 @@ public class FlooringOrdersService {
     /**
      * Creates and persists a new FlooringOrder
      */
+    @Override
     public void createOrder() throws ProductTypeNotFoundException, TaxRateNotFoundException {
         Map<String, String> flooringOrderInputs = view.getFlooringOrderInfoFromInput();
         BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(flooringOrderInputs.get("state"));
@@ -70,9 +72,9 @@ public class FlooringOrdersService {
 
 
         // see if any inputs were invalid
-        if (taxRate.compareTo(BigDecimal.ZERO) > 0) {
+        if (taxRate.compareTo(BigDecimal.ZERO) < 0) {
             throw new TaxRateNotFoundException("Product type not found. Try to create an order again? :)");
-        } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) > 0 || labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) > 0) {
+        } else if (costPerSquareFoot.compareTo(BigDecimal.ZERO) < 0 || labourCostPerSquareFoot.compareTo(BigDecimal.ZERO) < 0) {
             throw new ProductTypeNotFoundException("State type not found. Try to create an order again? :)");
         }
 
@@ -94,6 +96,7 @@ public class FlooringOrdersService {
     /**
      * Edits an existing FlooringOrder on disk
      */
+    @Override
     public void editOrder() {
 
         // Asks the user for orderDate, and orderNumber
@@ -109,6 +112,11 @@ public class FlooringOrdersService {
 
         BigDecimal taxRate = flooringOrders.getFlooringOrderTaxRate(newState);
         BigDecimal costPerSquareFoot = flooringOrders.getFlooringOrderCostPerSquareFoot(newProductType);
+
+        if (taxRate.compareTo(BigDecimal.ZERO) < 0 || costPerSquareFoot.compareTo(BigDecimal.ZERO) < 0) {
+            view.print("Unable to edit order! Please check state and product types exist :)");
+            return;
+        }
 
 
         System.out.println("New customer name: " + newCustomerName);
@@ -126,6 +134,7 @@ public class FlooringOrdersService {
     /**
      * Removes a FlooringOrder
      */
+    @Override
     public void removeOrder() {
         String[] orderInfoToDelete = view.getFlooringOrderInfo();
         flooringOrders.removeOrder(orderInfoToDelete);
@@ -134,6 +143,7 @@ public class FlooringOrdersService {
     /**
      * Exports all order data ta a backup directory and file
      */
+    @Override
     public void exportData() {
         final String ordersDirectoryPath = "./Orders";
 
@@ -160,6 +170,7 @@ public class FlooringOrdersService {
     /**
      * Display the menu of functionality
      */
+    @Override
     public void printMenu() {
         List<String> menuItems =
                 new ArrayList<>(Arrays.asList(
@@ -177,10 +188,12 @@ public class FlooringOrdersService {
      * @param prompt The message to prompt the user
      * @return The user input
      */
+    @Override
     public int readInt(String prompt) {
         return view.readInt(prompt);
     }
 
+    @Override
     public void print(String message) {
         view.print(message);
     }
@@ -189,6 +202,7 @@ public class FlooringOrdersService {
      * Fetches the taxRates from a given file
      * @param filename The file in which to gather taxRates for states
      */
+    @Override
     public void fetchTaxRates(String filename) {
         flooringOrders.fetchTaxRates(filename);
     }
@@ -197,6 +211,7 @@ public class FlooringOrdersService {
      * Fetches the product and labour costs per sq ft.
      * @param filename The file in which to gather costs data for productTypes
      */
+    @Override
     public void fetchProductCosts(String filename) {
         flooringOrders.fetchProductTypeCosts(filename);
     }
