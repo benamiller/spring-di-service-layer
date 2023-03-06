@@ -133,6 +133,12 @@ public class FlooringOrdersService implements OrdersService {
         System.out.println("New product type: " + newProductType);
         System.out.println("New area: " + newArea);
 
+        String shouldMakeEdit = view.readString("Do you wish to edit this order? (y/n)");
+        if (!shouldMakeEdit.equalsIgnoreCase("y")) {
+            view.print("Order not edited!");
+            return;
+        }
+
         ArrayList<String> updatedProperties = new ArrayList<>(Arrays.asList(newCustomerName, newState, newProductType, newArea));
 
         // create a new FlooringOrder object with updated values
@@ -146,6 +152,13 @@ public class FlooringOrdersService implements OrdersService {
     @Override
     public void removeOrder() {
         String[] orderInfoToDelete = view.getFlooringOrderInfo();
+
+        String shouldRemoveOrder = view.readString("Are you sure you wish to remove this order? (y/n)");
+        if (!shouldRemoveOrder.equalsIgnoreCase("y")) {
+            System.out.println("Order has NOT been removed");
+            return;
+        }
+
         flooringOrders.removeOrder(orderInfoToDelete);
     }
 

@@ -125,4 +125,7 @@ public class FlooringView implements GenericView {
         return newPropertyValue;
     }
 
+    public String readString(String prompt) {
+        return io.readString(prompt);
+    }
 }
